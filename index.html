@@ -1,0 +1,100 @@
+<html>
+
+    <head>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+        <title></title>
+
+        <style>
+
+        .container{
+
+            display: flex;
+
+            justify-content: center; /* Horizontal */
+
+            align-items: center; /* Vertikal */
+
+            height: 100vh; /* Volle Höhe des Bildschirms */
+
+        }      
+
+        img{
+
+		width: 680px;
+		height: 680px;
+		margin-bottom: 100px;
+            object-fit: contain;
+
+        }
+@media (max-width: 600px) {
+  img{
+	width:340px;
+	height: 340px;
+	margin-bottom: 100px;
+
+}
+}
+
+        .hidden {
+
+            display: none;
+
+        }
+        </style>
+
+    </head>
+
+    <body>
+
+	<div class="container" id="imageContainer"></div>
+
+	<script>
+
+const container = document.getElementById("imageContainer");
+const totalImages = 19;
+
+// Bilder erzeugen
+for (let i = 1; i <= totalImages; i++) {
+    const div = document.createElement("div");
+    div.className = "content hidden";
+
+    const img = document.createElement("img");
+    img.src = `0-00/${i}.jpg`;
+    img.alt = "";
+
+    div.appendChild(img);
+    container.appendChild(div);
+}
+
+const divs = document.querySelectorAll(".content");
+
+// Zufälliges Startbild
+let currentIndex = Math.floor(Math.random() * divs.length);
+divs[currentIndex].classList.remove("hidden");
+
+// Klick → nächstes Bild in Reihenfolge
+divs.forEach(div => {
+    div.addEventListener("click", () => {
+        divs[currentIndex].classList.add("hidden");
+
+        // In der Reihenfolge weitergehen (1,2,3 → 1...)
+        currentIndex = (currentIndex + 1) % divs.length;
+
+        divs[currentIndex].classList.remove("hidden");
+    });
+});
+
+  </script>
+	</body>       
+
+
+
+
+</html>
+
+
+
